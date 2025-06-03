@@ -30,6 +30,6 @@ $contenu = ob_get_clean();
 
 require "view/template.php";
 
-// fetchAll() est une méthode PHP de l’objet PDOStatement.  (Faut que je cherche)
+// "fetchAll() est une méthode PHP de l’objet PDOStatement".  (Faut que je cherche)
 // Elle récupère toutes les lignes du résultat de la requête SQL 
 // et les place dans un tableau (chaque ligne devient un sous-tableau).

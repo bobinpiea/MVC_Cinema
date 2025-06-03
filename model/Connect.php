@@ -6,7 +6,7 @@ namespace Model;
 
 
 // On déclare la classe Connect comme “abstract”. 
-// Abstract signifie qu’on ne pourra jamais faire : new Connect();
+// Abstract signifie qu’on ne pourra jms faire : new Connect();
 // Cette classe sert uniquement à fournir une méthode pour se connecter à la base,
 // pas à créer des objets issus de Connect.
 abstract class Connect {
@@ -17,7 +17,8 @@ abstract class Connect {
     const PASS = ""; // Mot de passe pour se connecter
 
     // Méthode: une fonction statique qui crée et renvoie un objet PDO pour la connexion
-    public static function seConnecter() {
+    // Pourquoi static ? 
+    public static function seConnecter() { 
         try {
             return new \PDO(
                 "mysql:host=" . self::HOST . ";dbname=" . self::DB . ";charset=utf8",
@@ -31,3 +32,5 @@ abstract class Connect {
 }
 
 // Un PDO est une extenison PHP  qui permet de se connecter à une base de données (MySQL, SQLite, PostgreSQL, etc.)
+// Pourquoi static ? "static veut dire que la méthode (ou la propriété) appartient directement à la classe elle-même,
+//  et non à un objet créé à partir de cette classe."
