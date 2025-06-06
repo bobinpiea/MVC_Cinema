@@ -14,12 +14,7 @@
         </tr>
     </thead>
     <tbody>
-        <?php foreach ($requete->fetchAll() as $film) { ?>
-            <tr>
-                <td><?= $film["titre"] ?></td>
-                <td><?= $film["annee_sortie"] ?></td>
-            </tr>
-        <?php } ?>
+       
     </tbody>
 </table>
 

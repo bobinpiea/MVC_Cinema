@@ -12,9 +12,9 @@ namespace Model;
 abstract class Connect {
 // (Ces constantes définissent les informations de connexion : hôte, nom de la base, utilisateur, mot de passe)
     const HOST = "localhost"; // Adresse du serveur de base ( mais nous on est en en local)
-    const DB   = "cinema"; // C'est le nom de notre de la base de données
+    const DB   = "cinema_pa"; // C'est le nom de notre de la base de données
     const USER = "root"; // Nom d’utilisateur pour se connecter ?,
-    const PASS = ""; // Mot de passe pour se connecter
+    const PASS = "root"; // Mot de passe pour se connecter
 
     // Méthode: une fonction statique qui crée et renvoie un objet PDO pour la connexion
     // Pourquoi static ? 

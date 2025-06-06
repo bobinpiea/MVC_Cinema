@@ -5,17 +5,17 @@ Sujet :
 
         a. Informations d’un film (id_film) : titre, année, durée (au format HH:MM) et réalisateur 
     
-            rajouter id_realisateur a  la table film ? 
+            (rajouter id_realisateur a  la table film ? )
 
                 SELECT
-                    f.id_film,
                     f.titre_film,
                     f.parution,
                     f.duree,
                     p.nom AS nom_realisateur,
                     p.prenom AS prenom_realisateur
                 FROM film f
-                JOIN realisateur r ON f.id_realisateur = r.id_realisateur
+                JOIN realiser re ON f.id_film = re.id_film
+                JOIN realisateur r ON re.id_realisateur = r.id_realisateur
                 JOIN personne p ON r.id_personne = p.id_personne;
 
         b. Liste des films dont la durée excède 2h15 classés par durée (du + long au + court)
