@@ -20,9 +20,8 @@ class CinemaController {
           ");
    
     //(On inclut le fichier view/listFilms.php qui va utiliser $requete pour afficher la liste des films)
-        require "view/listFilms.php"; 
+         require  "view/listFilms.php"; 
     }
-
 
         /**
          * Lister tous les genres
@@ -35,10 +34,8 @@ class CinemaController {
                 FROM genre
                 ORDER BY nom_genre ASC
             ");
-            require __DIR__ . "/../view/listGenres.php";
+            require "view/listGenre.php";
         }
-
-
 
     /**
      * Lister tous les réalisateurs
@@ -55,7 +52,7 @@ class CinemaController {
             JOIN personne    AS p ON r.id_personne = p.id_personne
             ORDER BY p.nom ASC, p.prenom ASC
         ");
-        require  "/../view/listRealisateurs.php";
+      require "/../view/listRealisateurs.php";
     }
 
     /**
@@ -72,9 +69,28 @@ public function listRoles()
         FROM role
         ORDER BY nom_role ASC
     ");
-    require "/../view/listRoles.php";
+      require "/view/listRoles.php";
 }
 
+    /**
+     * Lister les acteurs
+     */
+    public function listActeurs()
+    {
+        $pdo = Connect::seConnecter();
+        $requete = $pdo->query("
+        SELECT 
+            p.nom,
+            p.prenom
+        FROM personne as p
+        INNER JOIN acteur as a
+            ON a.id_personne = p.id_personne
+        ORDER BY 
+            p.nom ASC,
+            p.prenom ASC;
+    ");
+        require "/view/listActeurs.php";
+    }
 
 /**
  * Afficher le détail d’un acteur : ses infos et les films où il joue
@@ -90,7 +106,7 @@ public function detailActeur($id)
             p.nom,
             p.prenom
         FROM acteur AS a
-        JOIN personne AS p ON a.id_personne = p.id_personne
+       INNER JOIN personne AS p ON a.id_personne = p.id_personne
         WHERE a.id_acteur = :id
     ");
     $requetePers->execute([ "id" => $id ]);
@@ -103,14 +119,14 @@ public function detailActeur($id)
             j.id_role,
             r.nom_role
         FROM jouer AS j
-        JOIN film   AS f ON j.id_film = f.id_film
-        JOIN role   AS r ON j.id_role = r.id_role
+       INNER JOIN film   AS f ON j.id_film = f.id_film
+       INNER JOIN role   AS r ON j.id_role = r.id_role
         WHERE j.id_acteur = :id
         ORDER BY f.titre ASC
     ");
     $requeteFilms->execute([ "id" => $id ]);
 
-    require "/../view/detailActeur.php";
+      require __DIR__ . "/../view/detailActeur.php";
 }
 
 /**
@@ -136,14 +152,14 @@ public function detailGenre($id)
             f.titre,
             f.annee_sortie
         FROM film AS f
-        JOIN appartenir AS a ON f.id_film = a.id_film
+        INNER JOIN appartenir AS a ON f.id_film = a.id_film
         WHERE a.id_genre = :id
         ORDER BY f.titre ASC
     ");
     $requeteFilms->execute([ "id" => $id ]);
 
   
-    require "/../view/detailGenre.php";
+      require __DIR__ . "/../view/detailGenre.php";
 }
 
    public function detailFilm($id){
@@ -167,12 +183,10 @@ public function detailGenre($id)
     $requeteGenres = $pdo->prepare("
         SELECT g.nom_genre
         FROM genre AS g
-        JOIN appartenir AS a ON g.id_genre = a.id_genre
+        INNER JOIN appartenir AS a ON g.id_genre = a.id_genre
         WHERE a.id_film = :id
     ");
     $requeteGenres->execute([ "id" => $id ]);
-
-
 
     // Charger la vue 
     require "/view/detailFilm.php";
@@ -180,24 +194,53 @@ public function detailGenre($id)
 
 
 //Fonction pour ajouter un genre en base de donnée
-    public function insertGenre($nomGenre){
+    public function insertGenre(){
+
+        $nomGenre = filter_input(INPUT_POST, "nomGenre", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 
          $pdo = Connect::seConnecter();
            $addGenre  = $pdo->prepare("
                 INSERT INTO genre (nom_genre)
                 VALUES (:nom)
     ");
+    $addGenre ->execute([ "nom" => $nomGenre ]);
 
-    $insertGenre ->execute([ "nom" => $nomGenre ]);
-    
     header("Location: index.php?action=listGenres");
     exit;
 }
 
+/**
+ * Ajouter une personne puis un acteur
+ */
+public function insertActor()
+{
+    $nomActeur = filter_input(INPUT_POST, "nomActeur", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 
+    $pdo = Connect::seConnecter();
 
+    // 1
+        $ajoutPersonne = $pdo->prepare("
+            INSERT INTO personne (nom, prenom, date_naissance, sexe)
+            VALUES (:nom, :prenom, :date_naissance, :sexe)
+        ");
 
+        $ajoutPersonne->execute([
+            "nom" => $nom,
+            "prenom" => $prenom,
+            "date_naissance" => $date_naissance,
+            "sexe" => $sexe
+        ]);
 
+    // 2
 
+        $ajoutPersonne = $pdo->prepare("
+            INSERT INTO acteur (id_personne)
+            VALUES (:idPersonne)
+        ");
+        $ajoutPersonne->execute([ "idPersonne" => $newPersonId ]);
+
+   // header("Location: index.php?action=listActeurs");
+   //  exit;
+}
 
 }

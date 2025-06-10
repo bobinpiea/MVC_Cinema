@@ -59,5 +59,13 @@ if (isset($_GET["action"])) {
         case "detailGenre":
         $ctrlCinema->detailGenre($id);
         break;
+
+        case "insertGenre":
+        $ctrlCinema->insertGenre();
+        break;
+
+        case "insertActor":
+        $ctrlCinema->insertActor(["nom"],["prenom"],["dateNaissance"], ["sexe"]); // ???????
+        break;
     }
 }
