@@ -72,24 +72,23 @@ public function listRoles()
       require "/view/listRoles.php";
 }
 
-    /**
+    /**s
      * Lister les acteurs
      */
-    public function listActeurs()
-    {
+    public function listActeurs() {
         $pdo = Connect::seConnecter();
         $requete = $pdo->query("
-        SELECT 
-            p.nom,
-            p.prenom
-        FROM personne as p
-        INNER JOIN acteur as a
-            ON a.id_personne = p.id_personne
-        ORDER BY 
-            p.nom ASC,
-            p.prenom ASC;
-    ");
-        require "/view/listActeurs.php";
+            SELECT
+                p.nom,
+                p.prenom
+            FROM personne AS p
+            INNER JOIN acteur AS a
+                ON a.id_personne = p.id_personne
+            ORDER BY
+                p.nom ASC,
+                p.prenom ASC
+        ");
+        require __DIR__ . "/../view/listActeurs.php";
     }
 
 /**
@@ -212,35 +211,94 @@ public function detailGenre($id)
 /**
  * Ajouter une personne puis un acteur
  */
-public function insertActor()
-{
-    $nomActeur = filter_input(INPUT_POST, "nomActeur", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+public function insertActor() {
+
+    $nomActeur     = filter_input(INPUT_POST, "nomActeur",     FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+    $prenomActeur  = filter_input(INPUT_POST, "prenomActeur",  FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+    $dateNaissance = filter_input(INPUT_POST, "dateNaissance", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+    $sexeActeur    = filter_input(INPUT_POST, "sexeActeur",    FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 
     $pdo = Connect::seConnecter();
 
-    // 1
-        $ajoutPersonne = $pdo->prepare("
-            INSERT INTO personne (nom, prenom, date_naissance, sexe)
-            VALUES (:nom, :prenom, :date_naissance, :sexe)
-        ");
 
-        $ajoutPersonne->execute([
-            "nom" => $nom,
-            "prenom" => $prenom,
-            "date_naissance" => $date_naissance,
-            "sexe" => $sexe
+    $insertPersonne = $pdo->prepare("
+        INSERT INTO personne (nom, prenom, date_naissance, sexe)
+        VALUES (:nom, :prenom, :date_naissance, :sexe)
+    ");
+    $insertPersonne->execute([
+        "nom"            => $nomActeur,
+        "prenom"         => $prenomActeur,
+        "date_naissance" => $dateNaissance,
+        "sexe"           => $sexeActeur
+    ]);
+
+
+    $nouvellePersonneId = $pdo->lastInsertId();
+
+
+    $nouvellePersonne = $pdo->prepare("
+        INSERT INTO acteur (id_personne)
+        VALUES (:id_personne)
+    ");
+    $nouvellePersonne->execute([ "id_personne" => $nouvellePersonneId ]);
+
+    header("Location: index.php?action=listActeurs");
+    exit;
+}
+
+/**
+ * Supprimer un acteur
+ */
+public function deleteActor($id)
+{
+    $pdo = Connect::seConnecter();
+    $delete = $pdo->prepare("
+        DELETE FROM acteur
+        WHERE id_acteur = :id
+    ");
+    $delete->execute([ "id" => $id ]);
+
+    header("Location: index.php?action=listActeurs");
+    exit;
+}
+
+
+    /**
+     * Ajouter un nouveau film
+     */
+    public function insertFilm() {
+      
+        $titreFilm    = filter_input(INPUT_POST, "titreFilm", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+        $anneeSortie  = filter_input(INPUT_POST, "anneeSortie", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+        $duree        = filter_input(INPUT_POST, "duree", FILTER_SANITIZE_NUMBER_INT);
+        $synopsis     = filter_input(INPUT_POST, "synopsis", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+        $note         = filter_input(INPUT_POST, "note", FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
+        $affiche      = filter_input(INPUT_POST, "affiche", FILTER_SANITIZE_URL);
+
+      
+        $pdo = Connect::seConnecter();
+
+    
+        $ajoutFilm = $pdo->prepare("
+            INSERT INTO film
+                (titre, annee_sortie, duree, synopsis, note, affiche)
+            VALUES
+                (:titre, :annee_sortie, :duree, :synopsis, :note, :affiche)
+        ");
+        $ajoutFilm->execute([
+            "titre"         => $titreFilm,
+            "annee_sortie"  => $anneeSortie,
+            "duree"         => $duree,
+            "synopsis"      => $synopsis,
+            "note"          => $note,
+            "affiche"       => $affiche
         ]);
 
-    // 2
 
-        $ajoutPersonne = $pdo->prepare("
-            INSERT INTO acteur (id_personne)
-            VALUES (:idPersonne)
-        ");
-        $ajoutPersonne->execute([ "idPersonne" => $newPersonId ]);
+        header("Location: index.php?action=listFilms");
+        exit;
+    }
 
-   // header("Location: index.php?action=listActeurs");
-   //  exit;
-}
+
 
 }

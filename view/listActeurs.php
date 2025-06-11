@@ -2,13 +2,14 @@
 ob_start();
 ?>
 
+
 <form method="post" action="index.php?action=insertActor">
 
-    <input type="text" name="nom" placeholder="Nom" required>
-    <input type="text" name="prenom" placeholder="Prénom" required>
-    <input type="date" name="date_naissance" placeholder="Date de naissance" required>
+    <input type="text" name="nomActeur" placeholder="Nom de l’acteur" required>
+    <input type="text" name="prenomActeur" placeholder="Prénom de l’acteur" required>
+    <input type="date" name="dateNaissance" required>
 
-    <select name="sexe" required>
+    <select name="sexeActeur" required>
         <option value="">Sexe</option>
         <option value="M">M</option>
         <option value="F">F</option>

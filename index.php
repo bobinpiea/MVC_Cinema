@@ -65,7 +65,37 @@ if (isset($_GET["action"])) {
         break;
 
         case "insertActor":
-        $ctrlCinema->insertActor(["nom"],["prenom"],["dateNaissance"], ["sexe"]); // ???????
+            $ctrlCinema->insertActor(
+                $_POST["nomActeur"],
+                $_POST["prenomActeur"],
+                $_POST["dateNaissance"],
+                $_POST["sexeActeur"]
+            );
+            break;
+        
+        case "deleteActor":
+        $ctrlCinema->deleteActor($id);
         break;
+
+
+        case "insertFilm":
+        $ctrlCinema->insertFilm(
+            $_POST["titreFilm"],
+            $_POST["anneeSortie"],
+            $_POST["duree"],
+            $_POST["synopsis"],
+            $_POST["note"],
+            $_POST["affiche"]
+        );
+        break;
+
+        case "insertRealisateur":
+        $ctrlCinema->insertRealisateur(
+            $_POST["nomRealisateur"],
+            $_POST["prenomRealisateur"],
+            $_POST["dateNaissanceRealisateur"],
+            $_POST["sexeRealisateur"]
+    );
+    break;
     }
 }

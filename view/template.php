@@ -14,14 +14,15 @@
 
         <div>
             <a href="">
-                <img src="../public/img/clapOeil.webp" alt="Logo du site internet">
+                <img src="/public/img/clapOeil.webp" alt="Logo du site">
             </a>
         </div>
         
         <div>
             <a href="">Accueil</a>
-            <a href="">Films</a>
-            <a href="">Séries</a>
+            <a href="index.php?action=listFilms">Films</a>
+            <a href="index.php?action=listActeurs">Acteurs</a>
+            <a href="index.php?action=listActeurs">Réalisateurs</a>
         </div>
 
         <div>
