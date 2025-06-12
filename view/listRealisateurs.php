@@ -9,7 +9,6 @@ ob_start();
 <table class="uk-table uk-table-striped">
     <thead>
         <tr>
-            <th>ID</th>
             <th>NOM</th>
             <th>PRÉNOM</th>
         </tr>
@@ -17,7 +16,6 @@ ob_start();
     <tbody>
         <?php foreach ($requete->fetchAll() as $real) { ?>
             <tr>
-                <td><?= $real["id_personne"] ?></td>
                 <td><?= $real["nom"] ?></td>
                 <td><?= $real["prenom"] ?></td>
             </tr>

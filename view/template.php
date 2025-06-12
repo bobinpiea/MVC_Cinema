@@ -22,7 +22,7 @@
             <a href="">Accueil</a>
             <a href="index.php?action=listFilms">Films</a>
             <a href="index.php?action=listActeurs">Acteurs</a>
-            <a href="index.php?action=listActeurs">Réalisateurs</a>
+            <a href="index.php?action=listRealisateurs">Réalisateurs</a>
         </div>
 
         <div>

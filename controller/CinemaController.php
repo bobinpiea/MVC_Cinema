@@ -1,23 +1,38 @@
 <?php // On ouvre le bloc de code PHP
 
+// Pour rappel, le controller : 
+
 // On indique qu’on est dans le “dossier” Controller : ça dit où se trouve cette classe,
 namespace Controller;
-// On indique qu’on va utiliser la classe Connect, qui se trouve dans le dossier Model 
+
+// J’importe la classe Connect depuis le namespace Model pour pouvoir l’utiliser ici (et par conséquent me connecter la bdd)
 use Model\Connect;
 
-// (On crée une classe nommée CinemaController, qui va contenir les méthodes pour gérer les films (et acteurs)
+// on déclare la classe CinemaController
+// Cette dernière contiendra les méthodes pour gérer les actions du site (films, acteurs, etc.)
 class CinemaController {
     /**
      * Lister les films
      */
-    public function listFilms() { // On déclare une fonction listFilms qui a pour role de récupérer et afficher tous les films
+
+     // Méthode appelée quand l’action "listFilms" est demandée dans l’URL
+    // Elle va récupérer les films et afficher la vue correspondante
+    public function listFilms() { 
     // On appelle la méthode seConnecter de la classe Connect pour établir la connexion à la bbdd
      $pdo = Connect::seConnecter();
     // Ci-dessous, on exécute une requête SQL : on sélectionne les colonnes/champs titre et annee_sortie dans la table film
+    // et on stocke cela dans la variable requete
          $requete = $pdo->query("     
              SELECT titre, annee_sortie 
              FROM film
           ");
+
+    /**
+     *  C'est quoi query ? 
+     *  query() est une fonction fournie par PDO qui permet d’envoyer directement une requête SQL
+     *  à la base de données, quand il n’y a pas de variable dedans.
+     *  
+     */ 
    
     //(On inclut le fichier view/listFilms.php qui va utiliser $requete pour afficher la liste des films)
          require  "view/listFilms.php"; 
@@ -52,7 +67,7 @@ class CinemaController {
             JOIN personne    AS p ON r.id_personne = p.id_personne
             ORDER BY p.nom ASC, p.prenom ASC
         ");
-      require "/../view/listRealisateurs.php";
+        require __DIR__ . "/../view/listRealisateurs.php";
     }
 
     /**
@@ -300,5 +315,47 @@ public function deleteActor($id)
     }
 
 
+    /**
+ * Ajouter un nouveau réalisateur
+ */
+    public function insertRealisateur()
+    {
+        // 
+        $nomRealisateur         = filter_input(INPUT_POST, "nomRealisateur",         FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+        $prenomRealisateur      = filter_input(INPUT_POST, "prenomRealisateur",      FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+        $dateNaissanceRealisateur = filter_input(INPUT_POST, "dateNaissanceRealisateur", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+        $sexeRealisateur        = filter_input(INPUT_POST, "sexeRealisateur",        FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+
+        //
+        $pdo = Connect::seConnecter();
+
+        //
+        $requeteInsertPersonne = $pdo->prepare("
+            INSERT INTO personne (nom, prenom, date_naissance, sexe)
+            VALUES (:nom, :prenom, :date_naissance, :sexe)
+        ");
+        $requeteInsertPersonne->execute([
+            "nom"            => $nomRealisateur,
+            "prenom"         => $prenomRealisateur,
+            "date_naissance" => $dateNaissanceRealisateur,
+            "sexe"           => $sexeRealisateur
+        ]);
+
+        // 
+        $nouvelIdPersonne = $pdo->lastInsertId();
+
+        // 
+        $requeteInsertRealisateur = $pdo->prepare("
+            INSERT INTO realisateur (id_personne)
+            VALUES (:id_personne)
+        ");
+        $requeteInsertRealisateur->execute([
+            "id_personne" => $nouvelIdPersonne
+        ]);
+
+        // 
+        header("Location: index.php?action=listRealisateurs");
+        exit;
+    }
 
 }
