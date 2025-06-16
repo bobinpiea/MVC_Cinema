@@ -1,9 +1,19 @@
-<?php
-ob_start();
-?>
+<?php ob_start(); ?>
+
+<form method="post" action="index.php?action=insertRealisateur">
+    <input type="text" name="nomRealisateur" placeholder="Nom du réalisateur" required>
+    <input type="text" name="prenomRealisateur" placeholder="Prénom du réalisateur" required>
+    <input type="date" name="dateNaissanceRealisateur" required>
+    <select name="sexeRealisateur" required>
+        <option value="">Sexe</option>
+        <option value="M">M</option>
+        <option value="F">F</option>
+    </select>
+    <button type="submit">Ajouter un réalisateur</button>
+</form>
 
 <p class="uk-label uk-label-warning">
-    Il y a <?= $requete->rowCount() ?> réalisateurs
+    Il y a <?= $realisateurs->rowCount() ?> réalisateurs
 </p>
 
 <table class="uk-table uk-table-striped">
@@ -14,18 +24,17 @@ ob_start();
         </tr>
     </thead>
     <tbody>
-        <?php foreach ($requete->fetchAll() as $real) { ?>
+        <?php foreach ($realisateurs->fetchAll() as $realisateur) { ?>
             <tr>
-                <td><?= $real["nom"] ?></td>
-                <td><?= $real["prenom"] ?></td>
+                <td><?= $realisateur["nom"] ?></td>
+                <td><?= $realisateur["prenom"] ?></td>
             </tr>
         <?php } ?>
     </tbody>
 </table>
 
 <?php
-$titre            = "Liste des réalisateurs";
+$titre = "Liste des réalisateurs";
 $titre_secondaire = "Liste des réalisateurs";
-$contenu          = ob_get_clean();
+$contenu = ob_get_clean();
 require "view/template.php";
-?>

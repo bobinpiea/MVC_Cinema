@@ -1,0 +1,116 @@
+/* Initialisation de la page */
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+/* HEADER */
+
+/* logo */
+
+.logo{
+    height: 40px; /* sert à définir une hauteur fixe du logo */
+    width: auto; /* sert à garder les proportions (ne pas déformer l’image) */
+}
+
+
+/* nom du site */
+
+.nom-site {
+    color: white;  /* sert à afficher le texte en blanc */
+    font-size: 1.2rem; /* sert à agrandir un peu le texte */
+    font-weight: bold; /* sert à le rendre plus visible */
+    margin-left: 0.7rem;    /* sert à espacer le texte du logo */
+    font-family: Arial, sans-serif; /* sert à définir une police simple et claire */
+}
+/* nav */
+nav {
+    background-color: #121212;  /* sert à donner une couleur de fond à la barre */
+    padding: 1rem 2rem;  /* sert à ajouter de l'espace à l'intérieur (haut/bas : 1rem, gauche/droite : 2rem) */
+    display: flex;   /* sert à activer la mise en page en flexbox */
+    justify-content: space-between; /* sert à placer les éléments aux extrémités de la barre */
+    align-items: center;  /* sert à aligner les éléments verticalement */
+}
+/* liens nav */
+
+nav a {
+    color: white; /* sert à rendre les liens en blanc */
+    text-decoration: none; /* sert à enlever le soulignement par défaut */
+    margin-left: 1rem; /* sert à espacer les liens entre eux vers la droite */
+    font-size: 1.1rem; /* sert à agrandir la taille du texte */
+    font-weight: bold; /* sert à rendre le texte un peu plus épais */
+}
+
+/* nav gauche */
+
+.nav-gauche {
+    display: flex;  /* sert à mettre le logo et les liens sur la même ligne */
+    align-items: center; /* sert à aligner verticalement le logo et les liens */
+}
+
+/* survol des liens nav */
+
+nav a:hover {
+    opacity: 0.7;  /* sert à rendre le lien un peu plus transparent au survol */
+    transition: opacity 0.3s; /* sert à rendre la transition douce (0.3 seconde) */
+    cursor: pointer; /* sert à afficher la main quand on survole le lien (A retenir, nouveau pour moi)  */
+}
+
+/* liens principaux */
+
+.liens-principaux {
+    margin-left: 2rem; /* sert à espacer les liens par rapport au logo */
+}
+
+
+
+/* MAIN : Dépend de chaque page/View */
+
+
+
+/* FOOTER */
+
+footer {
+    background-color: #2c333f;  /* sert à donner une couleur de fond  au pied de page */
+    padding: 1rem 2rem;  /* sert à ajouter de l'espace intérieur */
+    display: flex;  /* sert à afficher les 3 blocs sur la même ligne */
+    justify-content: space-between; /* sert à mettre les 3 blocs aux extrémités + centre */
+    align-items: center; /* sert à aligner les éléments verticalement au milieu */
+    color: white;  /* sert à rendre le texte en blanc */
+    font-family: Arial, sans-serif; /* sert à définir une police simple et lisible */
+}
+
+/* liens à gauche du footer */
+
+footer div:first-child a {
+    color: white; /* sert à rendre les liens en blanc */
+    text-decoration: none;  /* sert à enlever le soulignement */
+    margin-right: 1rem;   /* sert à espacer les liens entre eux */
+    font-weight: bold; /* sert à mettre les liens en gras */
+    font-size: 0.95rem;  /* sert à définir une taille de texte légèrement plus petite */
+}
+
+/* texte central */
+
+footer p {
+    margin: 0;  /* sert à enlever les marges par défaut */
+    font-size: 0.95rem; /* sert à uniformiser la taille avec les liens */
+    text-align: center;  /* sert à centrer le texte */
+}
+
+/* icônes réseaux sociaux à droite */
+
+footer div:last-child a {
+    color: white;  /* sert à rendre les icônes blanches */
+    margin-left: 1rem;  /* sert à espacer les icônes entre elles */
+    font-size: 1.2rem;  /* sert à agrandir légèrement les icônes */
+    transition: opacity 0.3s;  /* sert à rendre le survol plus fluide */
+}
+
+footer div:last-child a:hover {
+    opacity: 0.7;  /* sert à ajouter un effet de transparence au survol */
+    cursor: pointer; /* sert à afficher la main au survol */
+}
+

@@ -1,0 +1,24 @@
+/* Initialisation de la page */
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+/* HEADER : Fait dans le template */
+
+
+/* main */
+
+main {
+    background-image: url("public/img/back_image_Sinners.webp"); /* sert à définir l'image comme fond */
+    background-size: cover; /* sert à agrandir l'image pour qu'elle couvre tout le bloc */
+    background-position: center; /* sert à centrer l'image dans le bloc, dans le cas ici présent le main  */
+    background-repeat: no-repeat; /* sert à empêcher que l'image se répète */
+    min-height: 80vh;  /* sert à faire en sorte que le main prenne toute la hauteur de l'écran */
+}
+
+
+
+/* Footer : Fait dans le template */

@@ -1,11 +1,8 @@
 I- DESIGN PATTERN
 
-« Modele de référence qui sert de source d’inspiration lors de la conception  d’une chose »
-
-1995 : Lire Design Patterns - Gang of Four ou GOF —>  ce qui donna un nom et un mode d’emploi à près de 25 patrons
-
+« Modele de référence qui sert de source d’inspiration lors de la conception d’une chose »
+1995 : Livre Design Patterns - Gang of Four ou GOF —>  ce qui donna un nom et un mode d’emploi à près de 25 patrons
 Il existe beaucoup de pattern qui vont influencer tant le code que l’organisation et l’interdépendance des fichiers/dossiers .
-
 
 II - Exemples
 
@@ -34,15 +31,10 @@ IV. Front-Controller
 	•	Front-Controller : dans une application web, c’est le fichier unique qui sert de « porte d’entrée » et redirige chaque requête vers le bon contrôleur, centralisant ainsi la gestion des routes, de la sécurité et de la configuration.
 
 
+RECAP :
 
-	MVC_CINEMA
-
-
-	• Namespace : Un namespace est comme un classeur ou un dossier qui contient les classes “du même domaine” - De la meme utilité. ? ex: classeur travail, cuisine, 
-
-
-
-De ce que je reteins pour le MVC : 
-Modèle : l’atelier (stocke et prépare la marchandise).
+	De ce que je reteins pour le MVC : 
+	
+	•	Modèle : C'est l’atelier : il stocke et prépare la marchandise.
 	•	Vue : la vitrine (expose joliment la marchandise et reçoit les clients).
-	•	Contrôleur : le chef de magasin (coordonne l’atelier et la vitrine )
+	•	Contrôleur : le chef de magasin/(d'orchestre) (coordonne l’atelier et la vitrine )

@@ -1,5 +1,7 @@
 <?php
-ob_start();
+
+// On démarre la temporisation de sortie ca veut dire que tout ce qui suit sera stocké dans un tampon
+ob_start(); 
 
 // Récupérer les infos du film
 $film = $requeteFilm->fetch();
@@ -58,8 +60,15 @@ $casting = $requeteCasting->fetchAll();
 <?php } ?>
 
 <?php
+
+// Titre principal de la page, utilisé dans la balise <title> du template
+// et ca sera le cas pour toutes les autres vus
 $titre            = $film["titre"];
+// Titre secondaire affiche le contenu principal de la page
 $titre_secondaire = "Détail du film : " . $film["titre"];
+// On récupère tout le contenu généré depuis ob_start() et on le stocke dans $contenu
+// Cela permet de l’intégrer proprement dans le template final
 $contenu          = ob_get_clean();
-require "view/template.php";
+// On affiche tout dans le template qui sert de squelette pour la page finale
+require "view/template.php"; 
 ?>
