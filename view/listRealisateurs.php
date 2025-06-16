@@ -13,7 +13,7 @@
 </form>
 
 <p class="uk-label uk-label-warning">
-    Il y a <?= $realisateurs->rowCount() ?> réalisateurs
+    Il y a <?= $realisateurs->rowCount() ?> réalisateur(s)
 </p>
 
 <table class="uk-table uk-table-striped">
@@ -28,6 +28,9 @@
             <tr>
                 <td><?= $realisateur["nom"] ?></td>
                 <td><?= $realisateur["prenom"] ?></td>
+                <td>
+                    <a href="index.php?action=deleteRealisateur&id=<?= $realisateur['id_realisateur'] ?>">[Supprimer]</a>
+                </td>
             </tr>
         <?php } ?>
     </tbody>

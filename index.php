@@ -132,8 +132,26 @@ if (isset($_GET["action"])) {
         break;
 
         case "accueil":
-            $ctrlCinema->afficherAccueil();
+                $ctrlCinema->afficherAccueil();
             break;
 
+       
+    // AJOUT DES CAS DE SUPPRESSION : 
+
+        //Suppression de film
+            case "deleteFilm":
+                $ctrlCinema->deleteFilm($id);
+            break;
+
+        //Suppression d'acteur
+            case "deleteActeur":
+                $ctrlCinema->deleteActeur($id);
+            break;
+        
+        //Suppresion Réalisateur
+            case "deleteRealisateur":
+                $ctrlCinema->deleteRealisateur();
+            break;
+            
     }
 }

@@ -38,7 +38,7 @@
 
     <!-- Affiche le nombre total d’acteurs, ex "y a 10 films -->
 <p class="uk-label uk-label-warning">
-    Il y a <?= $requete->rowCount() ?> films
+    Il y a <?= $requete->rowCount() ?> film(s)
 </p>
 
 <table class="uk-table uk-table-striped">
@@ -46,6 +46,7 @@
         <tr>
             <th>TITRE</th>
             <th>ANNEE_SORTIE</th>
+            <th>ACTION</th> <!-- Colonne pour supprimer -->
         </tr>
     </thead>
     <tbody>
@@ -53,6 +54,7 @@
             <tr>
                 <td><?= $film["titre"] ?></td>
                 <td><?= $film["annee_sortie"] ?></td>
+                <td> <a href="index.php?action=deleteFilm&id=<?= $film['id_film'] ?>">[Supprimer]</a></td>
             </tr>
         <?php } ?>
     </tbody>

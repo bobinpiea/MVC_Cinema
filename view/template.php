@@ -10,7 +10,7 @@
         <!-- Le css template sera commun à toutes les pages  -->
             <link rel="stylesheet" href="public/css/template.css">
         <!-- Appel le CSS de la page d'accueil quand c'est le cass  -->
-            <link rel="stylesheet" href="public/css/accueil.css">
+         
         
     </head>
 
@@ -18,11 +18,13 @@
         <header>
             <nav>
                 <div class="nav-gauche">
-                    <a href="">
+                    <a href="index.php?action=accueil">
                          <img class="logo" src="public/img/clapOeil.webp" alt="Logo du site">
                     </a>
 
-                    <p class="nom-site">CLAP’OEIL</p>
+                     <a href="index.php?action=accueil">
+                        <p class="nom-site">CLAP’OEIL</p>
+                    </a> 
 
                     <div class="liens-principaux">
                         <a href="index.php?action=accueil">Accueil</a>

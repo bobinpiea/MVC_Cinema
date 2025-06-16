@@ -2,7 +2,7 @@
 ob_start();
 ?>
 
-
+<!-- FORMULAIRE pour ajouter un acteur -->
 <form method="post" action="index.php?action=insertActor">
 
     <input type="text" name="nomActeur" placeholder="Nom de l’acteur" required>
@@ -18,17 +18,18 @@ ob_start();
     <button type="submit">Ajouter un acteur</button>
 </form>
 
-
-
+<!-- Affiche le nombre total d’acteurs -->
 <p class="uk-label uk-label-warning">
-    Il y a <?= $requete->rowCount() ?> acteurs
+    Il y a <?= $requete->rowCount() ?> acteur(s)
 </p>
 
+<!-- TABLEAU des acteurs -->
 <table class="uk-table uk-table-striped">
     <thead>
         <tr>
             <th>NOM</th>
             <th>PRENOM</th>
+            <th>ACTION</th>
         </tr>
     </thead>
     <tbody>
@@ -36,6 +37,9 @@ ob_start();
             <tr>
                 <td><?= $acteur["nom"] ?></td>
                 <td><?= $acteur["prenom"] ?></td>
+                <td>
+                    <a href="index.php?action=deleteActeur&id=<?= $acteur['id_acteur'] ?>">[Supprimer]</a>
+                </td>
             </tr>
         <?php } ?>
     </tbody>

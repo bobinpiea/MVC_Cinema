@@ -27,7 +27,7 @@
                     // titre et annee_sortie dans la table film
                     // et on stocke cela dans la variable requete
                 $requete = $pdo->query("     
-                    SELECT titre, annee_sortie 
+                    SELECT id_film, titre, annee_sortie 
                     FROM film
                 ");
 
@@ -41,14 +41,14 @@
                 ");
 
                 $realisateurs = $pdo->query("
-                    SELECT
-                        p.id_personne,
-                        p.nom,
-                        p.prenom
-                    FROM personne p
-                    INNER JOIN realisateur r ON  r.id_personne = p.id_personne
-                    ORDER BY p.nom ASC
-                ");
+                        SELECT
+                            r.id_realisateur,
+                            p.nom,
+                            p.prenom
+                        FROM personne p
+                        INNER JOIN realisateur r ON  r.id_personne = p.id_personne
+                        ORDER BY p.nom ASC
+                    ");
 
                     /**
                      *  C'est quoi query ? 
@@ -93,7 +93,7 @@
                 // Pour ça, je prends les personnes qui ont un lien dans la table "realisateur"
                 // donc je fais une jointure entre personne et realisateur
                 $realisateurs = $pdo->query("
-                    SELECT p.nom, p.prenom
+                    SELECT r.id_realisateur, p.nom, p.prenom
                     FROM personne p
                     INNER JOIN realisateur r ON r.id_personne = p.id_personne
                     ORDER BY p.nom ASC
@@ -126,6 +126,7 @@
                     $pdo = Connect::seConnecter();
                     $requete = $pdo->query("
                         SELECT
+                            a.id_acteur, 
                             p.nom,
                             p.prenom
                         FROM personne p
@@ -302,21 +303,6 @@
                     }
 
         /* Afficher le détail d’un film : nom et films associés */
-/**
- * Supprimer un acteur
- */
-                        public function deleteActor($id)
-                        {
-                            $pdo = Connect::seConnecter();
-                            $delete = $pdo->prepare("
-                                DELETE FROM acteur
-                                WHERE id_acteur = :id
-                            ");
-                            $delete->execute([ "id" => $id ]);
-
-                            header("Location: index.php?action=listActeurs");
-                            exit;
-                        }
 
         /* INSERER UN FILM */
                         
@@ -341,8 +327,8 @@
                                 VALUES (:titre, :annee_sortie, :duree, :synopsis, :note, :affiche, :id_realisateur)
                             ");
 
-                           // var_dump($realisateur);
-                           // die();
+                           //var_dump($realisateur);
+                           //die();
 
                             // Exécution de la requête SQL avec les données récupérées du formulaire
                             $ajoutFilm->execute([
@@ -403,14 +389,58 @@
                             header("Location: index.php?action=listRealisateurs");
                             exit;
                         }
-
-
-
-
+        
         // Cette méthode affiche la page d’accueil
             public function afficherAccueil()
             {
                 require "view/accueil.php";
             }
+
+    // LES METHODES DELETE 
+
+        // Methode pour supprimer un film
+
+        // SUPPRIMER UN ACTEUR
+                public function deleteActeur($id) {
+                            // Sert à se connecter à la base de données
+                                $pdo = Connect::seConnecter();
+
+                                $delete = $pdo->prepare("
+                                    DELETE FROM acteur
+                                    WHERE id_acteur = :id
+                                ");
+                                
+                                $delete->execute([ "id" => $id ]);
+
+                                header("Location: index.php?action=listActeurs");
+                                exit;
+                }       
+
+
+        // SUPPRIMER UN RÉALISATEUR
+            public function deleteRealisateur() {
+                // On récupère l'id du réalisateur depuis l’URL (via $_GET)
+                $id = filter_input(INPUT_GET, "id", FILTER_SANITIZE_NUMBER_INT);
+
+                // Connexion à la base de données
+                $pdo = Connect::seConnecter();
+
+                // Requête SQL pour supprimer le réalisateur selon son id
+                $sql = $pdo->prepare("
+                    DELETE FROM realisateur 
+                    WHERE id_realisateur = :id
+                ");
+
+                // Exécution de la requête avec la valeur de l’id
+                $sql->execute(["id" => $id]);
+
+                // Une fois supprimé, on revient à la page liste des réalisateurs
+                header("Location: index.php?action=listRealisateurs");
+                exit;
+            }
+
+
+
+
 
 }
