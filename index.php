@@ -48,110 +48,118 @@ if (isset($_GET["action"])) {
         // et appeler la méthode correspondante dans le contrôleur
     switch ($_GET["action"]) {
 
-            // ex : Cas 1 : Si action=listFilms, on appelle la méthode listFilms du controller) 
-            // et j'applique la meme logique pour la suite des autres "case"
-        case "listFilms":
-            $ctrlCinema->listFilms();
-        break;
+        // LISTE DES CAS LIST
 
-            // (Si action=listActeurs, on appelle la méthode listActeurs du controller)
-        case "listActeurs":
-            $ctrlCinema->listActeurs();
-        break;
-
-            // On appelle la méthode detailFilm en lui donnant l’ID du film pour qu’elle affiche ses infos : 
-            
-            /*
-                On appelle ici la méthode detailFilm du contrôleur cinéma.
-                On lui transmet en paramètre l’ID du film, qu’on a récupéré depuis l’URL avec $_GET["id"].
-                Cet ID va servir à la méthode pour aller chercher dans la base de données
-                le film correspondant à cet identifiant.
-                Ensuite, cette méthode affichera tous les détails du film dans la vue prévue pour cela.
-            */
-            
-        case "detailFilm":
-            $ctrlCinema->detailFilm($id);
-        break;
-
-        case "listGenres":
-            $ctrlCinema->listGenres();
-        break;
-
-        case "listRealisateurs":
-            $ctrlCinema->listRealisateurs();
-        break;
-
-        case "listRoles":
-            $ctrlCinema->listRoles();
-        break;
-
-        case "detailActeur":
-            $ctrlCinema->detailActeur($id);
-        break;
-
-        case "detailGenre":
-            $ctrlCinema->detailGenre($id);
-        break;
-
-        case "insertGenre":
-            $ctrlCinema->insertGenre();
-        break;
-
-        case "insertActor":
-            $ctrlCinema->insertActor(
-                $_POST["nomActeur"],
-                $_POST["prenomActeur"],
-                $_POST["dateNaissance"],
-                $_POST["sexeActeur"]
-            );
-        break;
-        
-        case "deleteActor":
-            $ctrlCinema->deleteActor($id);
-        break;
-
-
-        case "insertFilm":
-            $ctrlCinema->insertFilm(
-                $_POST["titreFilm"],
-                $_POST["anneeSortie"],
-                $_POST["duree"],
-                $_POST["synopsis"],
-                $_POST["note"],
-                $_POST["affiche"]
-            );
-        break;
-
-        case "insertRealisateur":
-            $ctrlCinema->insertRealisateur(
-                $_POST["nomRealisateur"],
-                $_POST["prenomRealisateur"],
-                $_POST["dateNaissanceRealisateur"],
-                $_POST["sexeRealisateur"]
-            );
-        break;
-
-        case "accueil":
-                $ctrlCinema->afficherAccueil();
+                // ex : Cas 1 : Si action=listFilms, on appelle la méthode listFilms du controller) 
+                // et j'applique la meme logique pour la suite des autres "case"
+            case "listFilms":
+                $ctrlCinema->listFilms();
             break;
 
+                // (Si action=listActeurs, on appelle la méthode listActeurs du controller)
+            case "listActeurs":
+                $ctrlCinema->listActeurs();
+            break;
+
+            case "listGenres":
+                $ctrlCinema->listGenres();
+            break;
+
+            case "listRealisateurs":
+                $ctrlCinema->listRealisateurs();
+            break;
+
+            case "listRoles":
+                $ctrlCinema->listRoles();
+            break;
+
+                    // On appelle la méthode detailFilm en lui donnant l’ID du film pour qu’elle affiche ses infos : 
+                
+                /*
+                    On appelle ici la méthode detailFilm du contrôleur cinéma.
+                    On lui transmet en paramètre l’ID du film, qu’on a récupéré depuis l’URL avec $_GET["id"].
+                    Cet ID va servir à la méthode pour aller chercher dans la base de données
+                    le film correspondant à cet identifiant.
+                    Ensuite, cette méthode affichera tous les détails du film dans la vue prévue pour cela.
+                */
+                
+        // LISTE DES CAS DETAILS
+
+            case "detailFilm":
+                $ctrlCinema->detailFilm($id);
+            break;
+
+            case "detailActeur":
+                $ctrlCinema->detailActeur($id);
+            break;
+
+            case "detailGenre":
+                $ctrlCinema->detailGenre($id);
+            break;
+
+    
+        // LISTE DES CAS AJOUT
+
+            case "insertGenre":
+                $ctrlCinema->insertGenre();
+            break;
+
+            case "insertActor":
+                $ctrlCinema->insertActor(
+                    $_POST["nomActeur"],
+                    $_POST["prenomActeur"],
+                    $_POST["dateNaissance"],
+                    $_POST["sexeActeur"]
+                );
+            break;
+            
+            case "deleteActor":
+                $ctrlCinema->deleteActor($id);
+            break;
+
+
+            case "insertFilm":
+                $ctrlCinema->insertFilm(
+                    $_POST["titreFilm"],
+                    $_POST["anneeSortie"],
+                    $_POST["duree"],
+                    $_POST["synopsis"],
+                    $_POST["note"],
+                    $_POST["affiche"]
+                );
+            break;
+
+            case "insertRealisateur":
+                $ctrlCinema->insertRealisateur(
+                    $_POST["nomRealisateur"],
+                    $_POST["prenomRealisateur"],
+                    $_POST["dateNaissanceRealisateur"],
+                    $_POST["sexeRealisateur"]
+                );
+            break;
+
+        // (RE)DIRECTION SUR LA PAGE D'ACCUEIL
+
+            case "accueil":
+                    $ctrlCinema->afficherAccueil();
+                break;
        
-    // AJOUT DES CAS DE SUPPRESSION : 
+        // AJOUT DES CAS DE SUPPRESSION : 
 
-        //Suppression de film
-            case "deleteFilm":
-                $ctrlCinema->deleteFilm($id);
-            break;
+            //Suppression de film
+                case "deleteFilm":
+                    $ctrlCinema->deleteFilm($id);
+                break;
 
-        //Suppression d'acteur
-            case "deleteActeur":
-                $ctrlCinema->deleteActeur($id);
-            break;
-        
-        //Suppresion Réalisateur
-            case "deleteRealisateur":
-                $ctrlCinema->deleteRealisateur();
-            break;
+            //Suppression d'acteur
+                case "deleteActeur":
+                    $ctrlCinema->deleteActeur($id);
+                break;
+            
+            //Suppresion Réalisateur
+                case "deleteRealisateur":
+                    $ctrlCinema->deleteRealisateur();
+                break;
             
     }
 }

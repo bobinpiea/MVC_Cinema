@@ -1,13 +1,13 @@
 <?php ob_start(); ?>
 
 
-<form method="post" action="index.php?action=insertFilm" style="margin-bottom:1em;">
+<form method="post" action="index.php?action=insertFilm" enctype="multipart/form-data">
 
     <input type="text"   name="titreFilm"   placeholder="Titre du film"        required>
     <input type="text"   name="anneeSortie" placeholder="Année de sortie (ex: 2022)" required>
     <input type="number" name="duree"       placeholder="Durée (minutes)"      required>
     <input type="number" step="0.1" name="note"       placeholder="Note (0–5)"           required>
-    <input type="url"    name="affiche"    placeholder="URL de l’affiche (optionnel)">
+    <input type="file"    name="affiche"    placeholder="Charger votre image (facultatif)">
     <textarea name="synopsis" placeholder="Synopsis" ></textarea>
 
     <br><br>
